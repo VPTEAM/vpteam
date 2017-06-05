@@ -1,0 +1,92 @@
+.form
+{
+  margin-top: 9em;
+}
+.btn-login
+{
+  width: 100%
+}
+.input-login
+{
+  width: 100%
+}
+
+h5
+{
+  margin-left: 3em;
+}
+.content
+{
+  height: 35em;
+  width: 20em;
+  overflow: auto;
+}
+.password-pills > li
+{
+  border-style: solid;
+  border-width: 0.01em;
+  border-color: rgb(147, 147, 147);
+  border-radius: 0.5em;
+  color: rgb(121, 121, 121);
+  list-style: none;
+  padding: 2.5em;
+  margin: 1em;
+  height: 5em;
+  cursor: pointer;
+}
+.form
+{
+  margin-top: 1em;
+}
+.input-container
+{
+  text-align: right;
+}
+
+.margin-input
+{
+  padding-top: 5em;
+}
+
+.input-edit
+{
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  border-style: solid;
+  border-top-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-bottom-color: rgba(171, 171, 171, 0.42);
+  border-bottom-width:0.05em;
+}
+a
+{
+  color:rgba(106, 106, 106, 0.73);
+}
+.btn-cancel
+{
+	border-style:none;
+	background:rgb(217, 61, 61);
+	color: white;
+	border-radius: 0px;
+ 	width: 5em;
+}
+.btn-cancel:hover
+{
+	background:rgb(244, 106, 106);
+ 	color: white;
+ 	border-radius: 0px;
+}
+.btn-submit
+{
+  border-style:none;
+  color: white;
+  background: rgb(28, 85, 145);
+  border-radius: 0px;
+  width: 5em;
+}
+.btn-submit:hover
+{
+  background:rgb(41, 107, 177);
+  color: white;
+}

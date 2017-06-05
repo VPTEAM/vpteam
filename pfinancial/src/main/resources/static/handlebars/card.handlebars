@@ -1,0 +1,11 @@
+
+<script id="card-pass" type="text/x-handlebars-template">
+      <div class="card-container-mini" id="{{id}}" onClick="select(this.id)">
+        <div class="card-header">
+          <span>sitioWeb: </span><label id="site-{{id}}">{{site}}</label>
+        </div>
+           <label hidden="true" id="url-{{id}}">{{url}}</label>
+           <label hidden="true" id="password-{{id}}">{{password}}</label>
+           <label hidden="true" id="expiration-{{id}}">{{expiration}}</label>
+        </div>
+</script>

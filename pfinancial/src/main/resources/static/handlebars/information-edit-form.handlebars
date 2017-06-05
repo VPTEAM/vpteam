@@ -1,0 +1,28 @@
+<script id="card-pass" type="text/x-handlebars-template">
+      <div class="form" id="form-template">
+      <form>
+          <input hidden="true" type="text" name="web-site-field" value="{{id}}"></input>
+
+
+          <div class="input-container">
+            <div class="col-md-3"><label for="web-site-field">Website</label></div>
+            <div class="col-md-9"><input class="input-edit" type="text" name="web-site-field" value="{{site}}"></input>
+            </div>
+          </div>
+          <div class="input-container margin-input">
+            <div class="col-md-3"><label for="url-field">Url</label></div>
+            <div class="col-md-9"><input class="input-edit" type="text" name="url-field" value="{{url}}"></input>
+            </div>
+          </div>
+          <div class="input-container margin-input">
+            <div class="col-md-3"><label for="password-field">Password</label></div>
+            <div class="col-md-9"><input class="input-edit" type="password" name="password-field" value="{{password}}"></input>
+            </div>
+          </div>
+          <div class="input-container margin-input">
+            <div class="col-md-3"><label for="date-field">Date</label></div>
+            <div class="col-md-9"><input class="input-edit" type="text" name="date-field" placeholder="{{expiration}}"></input>
+            </div>
+          </div>
+      </form>
+</script>
