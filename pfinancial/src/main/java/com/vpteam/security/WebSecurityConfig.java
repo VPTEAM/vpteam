@@ -33,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 		  http
 		 
           .authorizeRequests().antMatchers("/dasboard").access("hasRole('ROLE_ADMIN')")
-              .antMatchers("/", "/home", "/css/**", "/js/**").permitAll()
+              .antMatchers("/", "/home", "/css/**", "/handlebars/**", "/js/**").permitAll()
               .anyRequest().authenticated()
               .and()
           .formLogin()

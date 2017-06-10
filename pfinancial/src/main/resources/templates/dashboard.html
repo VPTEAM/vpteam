@@ -12,25 +12,26 @@
     </head>
  <meta name="_csrf" th:content="${_csrf.token}"/>
 <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-<meta charset="UTF-8"></meta>
+<meta charset="UTF-8"/>
 <title>Hello dashboard</title>
 <body>
 	<div class="container-full">
-    <div class="card-container">
-      <div class="card-header">
-        Password Man
-      </div>
-
-      <div class="card-body">
+    <div>
+      <div>
         <div class="row">
-          <div class="col-md-3 division-right">
-            <ul style="padding-top:1em;" class="nav nav-pills nav-stacked">
-              <li role="presentation" id="add" ><a href="#">Add new password</a></li>
-              <li role="presentation"><a href="#">Profile</a></li>
-              <li role="presentation"><a href="#">Messages</a></li>
+          <div class="navbar custom-navbar">
+           <div class="container">
+           	 <ul class="nav navbar-nav">
+              <li role="presentation" id="add" ><a href="#">Entradas de dinero</a></li>
+              <li role="presentation" id="ingresos_base"><a href="#">Salidas de dinero</a></li>
+              <li role="presentation"><a href="#">Ingresos</a></li>
             </ul>
+           </div>
           </div>
           <div class="content col-md-3" id="password-content">
+
+          </div>
+          <div id="modal2">
 
           </div>
           <div class="col-md-6">
@@ -38,62 +39,12 @@
 
           </div>
           </div>
-
-            <div id="myModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-              <div class="modal-dialog modal-md" role="document">
-
-                <div class="modal-content">
-                  <div class="modal-header"><h4>Add a new password</h4></div>
-                  <div class="modal-body">
-                    <form class="form-horizontal" id="input-form">
-                      <div class="form-group form-group-sm">
-                        <label class="col-sm-2 control-label" for="site">Web site</label>
-                        <div class="col-sm-10">
-                          <input class="input-edit" type="text" id="site" placeholder="Small input"/>
-                        </div>
-                      </div>
-                      <div class="form-group form-group-sm">
-                        <label class="col-sm-2 control-label" for="url">URL</label>
-                        <div class="col-sm-10">
-                          <input class="input-edit" type="text" id="url" placeholder="Small input"/>
-                        </div>
-                      </div>
-                      <div class="form-group form-group-sm">
-                        <label class="col-sm-2 control-label" for="password">Password</label>
-                        <div class="col-sm-10">
-                          <input class="input-edit" type="password" id="password" placeholder="Small input"/>
-                        </div>
-                      </div>
-                      <div class="form-group form-group-sm">
-                        <label class="col-sm-2 control-label" for="repeat-password">Repeat password</label>
-                        <div class="col-sm-10">
-                          <input class="input-edit" type="password" id="repeat password" placeholder="Small input"/>
-                        </div>
-                      </div>
-
-                      <div class="form-group form-group-sm">
-                        <label class="col-sm-2 control-label" for="expiration">Expiration</label>
-                        <div class="col-sm-10">
-                          <input class="input-edit" type="text" id="expiration" placeholder="Small input"/>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-
-                  <div class="modal-footer">
-                    <button class="btn btn-default btn-submit" id="btn-add" data-dismiss="modal">Add</button>
-                    <button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
         </div>
       </div>
     </div>
 
   </div>
-  
+
   <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/handlebars-v4.0.5.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
@@ -139,13 +90,24 @@
     });
 
   }
-
+	$("#ingresos_base").click(function()
+	{
+		 $.get("/handlebars/ingresos_base.html", function (data)
+		    {
+			 	myModal2 = $(data).html();
+		     	var container =  document.getElementById("modal2");
+		     	container.innerHTML += data;
+		     	console.log(container);
+		    });
+		$('#myModal2').modal('show');
+	});
    $('#add').click(function()
     {
       /*  */
       $('#myModal').modal('show');
     }
   );
+
   $('#btn-add').click(function(){
     var webSite = $('#site').val();
     var webSiteUrl = $('#url').val();
@@ -177,7 +139,7 @@
             xhr.setRequestHeader('X-CSRF-TOKEN', token);
         }
     });
-    
+
     $.ajax({
         url : "/storeData",
         type: "POST",
@@ -188,7 +150,7 @@
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-     
+
         }
     });
   });
