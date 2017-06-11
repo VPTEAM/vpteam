@@ -9,8 +9,16 @@ public class Persona
     private int sexo;
     private String cedula;
     
-    public Persona()
+    public Persona ()
     {
+    }
+    
+    public Persona(String nombre, String apellidos, int sexo, String cedula)
+    {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.sexo = sexo;
+        this.cedula = cedula;
     }
 
     public String getNombre() 

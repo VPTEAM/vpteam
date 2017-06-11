@@ -45,12 +45,15 @@ public class PersonaDao
             rs = estado.executeQuery("SELECT * FROM personas");
             
             while(rs.next())
-                lista.add(new Persona())
+                lista.add( new Persona( rs.getString(1), rs.getString(2), rs.getInt(3),
+                        rs.getString(4) ) );
         }
         catch(SQLException exception)
         {
             logger.error(exception);
             System.out.println("Error: " + exception.getErrorCode() + exception.getMessage());
         }
+        
+        return lista;
     }
 }
