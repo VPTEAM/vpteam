@@ -63,7 +63,7 @@ public class PersonaDao
         {
             PreparedStatement estado = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(
                     "DELETE * FROM personas WHERE id = ?");
-            estado.setInt(0, id);
+            estado.setInt(1, id);
             estado.executeUpdate();
         }
         catch(SQLException exception)
