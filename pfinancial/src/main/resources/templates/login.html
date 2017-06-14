@@ -18,6 +18,7 @@
 			        </div>
 			        <h5>Iniciar sesi&oacute;n</h5>
 			        <form th:action="@{/login}" class="form" method="post">
+			        	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 			            <div><input class="input-login" type="text" name="username" placeholder="username"/></div>
 			            <div><input class="input-login" type="password" name="password" placeholder="******"/></div>
 			            <div><button class="button-primary btn-login" type="submit" value="Iniciar">Iniciar</button></div>

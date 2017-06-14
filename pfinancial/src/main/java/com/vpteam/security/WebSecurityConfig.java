@@ -31,9 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 	protected void configure(HttpSecurity http) throws Exception
 	{
 		  http
-		 
-          .authorizeRequests().antMatchers("/dasboard").access("hasRole('ROLE_ADMIN')")
-              .antMatchers("/", "/home", "/css/**", "/handlebars/**", "/js/**").permitAll()
+          .authorizeRequests().antMatchers("/dasboard", "/insertarPersona").access("hasRole('ROLE_ADMIN')")
+              .antMatchers("/", "/home", "/css/**", "/handlebars/**", "/js/**", "/fragments/**").permitAll()
               .anyRequest().authenticated()
               .and()
           .formLogin()
@@ -41,10 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
               .permitAll()
               .defaultSuccessUrl("/dashboard")
               .and()
-          .logout()
-          .permitAll();
-
-		  
+          .logout().logoutSuccessUrl("/login").deleteCookies("JSESSIONID").invalidateHttpSession(true)
+          .and().csrf().ignoringAntMatchers("/login");
 		
 	}
 	

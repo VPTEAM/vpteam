@@ -16,13 +16,14 @@ public class PersonaDao
     {           
         try 
         {
+        	logger.info(Conexion.obtenerInstancia().obtenerConexion());
             PreparedStatement estado = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(
                     "INSERT INTO personas (nombre, apellidos, sexo, cedula) VALUES (?, ?, ?, ?)");
             estado.setString(1, objPersona.getNombre());
             estado.setString(2, objPersona.getApellidos());
             estado.setInt(3, objPersona.getSexo());
             estado.setString(4, objPersona.getCedula());
-            estado.execute();
+            estado.executeUpdate();
         }
         catch(SQLException exception)
         {
@@ -91,7 +92,7 @@ public class PersonaDao
         catch(SQLException exception)
         {
             logger.error(exception);
-            System.out.println("Error: " + exception.getErrorCode() + exception.getMessage());
+            logger.info("Error: " + exception.getErrorCode() + exception.getMessage());
         }
     }
 }

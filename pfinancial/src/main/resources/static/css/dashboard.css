@@ -1,6 +1,6 @@
 .row
 {
-  margin-top: 5em;
+  margin-top: 0.1em;
 }
 
 .password-content
@@ -27,4 +27,17 @@
 {
   padding-top: -20em;
   padding-left: 2em;
+}
+.custom-navbar
+{
+	background-color: rgb(84, 84, 84);
+	color:white;
+}
+.navbar-nav>li>a{
+	color:white;	
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color:rgb(65, 65, 65);
+	color:white;
 }

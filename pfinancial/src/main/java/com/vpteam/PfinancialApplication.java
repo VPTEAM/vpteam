@@ -13,14 +13,6 @@ public class PfinancialApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PfinancialApplication.class, args);
-                
-                Persona persona = new Persona();
-                persona.setNombre("Maria");
-                persona.setApellidos("Araya");
-                persona.setSexo(1);
-                persona.setCedula("333");
-                
-                PersonaDao personaDao = new PersonaDao();
-                personaDao.insertar(persona);
+    
 	}
 }

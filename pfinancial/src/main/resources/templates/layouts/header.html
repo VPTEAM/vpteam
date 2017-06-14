@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    
+  </head>
+  <body>
+    <div class="navbar custom-navbar" th:fragment="header">
+           <div class="container">
+           	 <ul class="nav navbar-nav">
+              <li role="presentation" id="add" ><a href="#">Entradas de dinero</a></li>
+              <li role="presentation" id="ingresos_base"><a href="#">Salidas de dinero</a></li>
+              <li role="presentation"><a href="#">Ingresos</a></li>
+            </ul>
+            <div style="margin-top:7px;color:white;" class="pull-right">
+            	<a class="btn btn-danger" href="/logout">logout</a>
+            </div>
+           </div>
+          </div>
+  </body>
+</html>
