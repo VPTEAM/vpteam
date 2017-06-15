@@ -7,29 +7,41 @@ import com.vpteam.entities.Persona;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonaDao 
 {
-    public void insertar(Persona objPersona)
-    {           
+    public int insertar(Persona objPersona)
+    {  
+        int id = 0;
+        
         try 
         {
-        	logger.info(Conexion.obtenerInstancia().obtenerConexion());
+            logger.info(Conexion.obtenerInstancia().obtenerConexion());
+            Statement statement = Conexion.obtenerInstancia().obtenerConexion().createStatement();
             PreparedStatement estado = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(
-                    "INSERT INTO personas (nombre, apellidos, sexo, cedula) VALUES (?, ?, ?, ?)");
+                    "INSERT INTO personas (nombre, apellidos, sexo, cedula) VALUES (?, ?, ?, ?);"
+                            , statement.RETURN_GENERATED_KEYS);
             estado.setString(1, objPersona.getNombre());
             estado.setString(2, objPersona.getApellidos());
             estado.setInt(3, objPersona.getSexo());
             estado.setString(4, objPersona.getCedula());
-            estado.executeUpdate();
+            estado.execute();
+            ResultSet rs = estado.getGeneratedKeys();             
+                         
+            while(rs.next())             	
+                id = rs.getInt(1);
+            
+            logger.info("Id: " + id);
         }
         catch(SQLException exception)
         {
             logger.error(exception);
-            System.out.println("Error: " + exception.getErrorCode() + exception.getMessage());
         }
+        
+        return id;
     }
     
     public List<Persona> seleccionar()

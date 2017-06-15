@@ -4,6 +4,7 @@ package com.vpteam.entities;
  
 public class Persona 
 {
+    private int id;
     private String nombre;
     private String apellidos;
     private int sexo;
@@ -11,6 +12,10 @@ public class Persona
     
     public Persona ()
     {
+    }
+
+    public int getId() {
+        return id;
     }
     
     public Persona(String nombre, String apellidos, int sexo, String cedula)
