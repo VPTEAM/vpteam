@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
@@ -49,24 +51,17 @@ public class AppController
 	}
 	
 	@RequestMapping(value="/insertarPersona")
-	public String storeData()
-	{
-		//TODO HACER ALGO Y RETORNAR UN PLANTILLA
+	public String storeData(Model model)
+	{	
+		model.addAttribute("persona", new Persona());
 		return "nueva_persona";
 	}
 	
 	@RequestMapping(value="/insertarPersona", method=RequestMethod.POST)
-	public String storeData(WebRequest request)
+	public String storeData(@ModelAttribute Persona persona)
 	{
-		logger.info(request.getParameter("nombre"));
-		Persona nuevaPersona = new Persona();
-		nuevaPersona.setNombre(request.getParameter("nombre"));
-		nuevaPersona.setApellidos(request.getParameter("apellidos"));
-		nuevaPersona.setSexo(Integer.parseInt(request.getParameter("sexo")));
-		nuevaPersona.setCedula(request.getParameter("cedula"));
 		PersonaDao personaDao = new PersonaDao();
-		personaDao.insertar(nuevaPersona);
-	
+		personaDao.insertar(persona);
 		return "dashboard";
 	}
   }
