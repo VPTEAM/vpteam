@@ -2,8 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <title>Mi login</title>
-
+        <title>Dashboard</title>
         <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
   		<link rel="stylesheet" href="css/bootstrap-theme.min.css" th:href="@{/css/bootstrap-theme.min.css}"/>
 	    <link rel="stylesheet" href="css/dashboard.css" th:href="@{/css/dashboard.css}"/>
@@ -20,133 +19,39 @@
       <div>
         <div class="row">
          <div th:replace="layouts/header :: header"></div>
-          <div class="content col-md-3" id="password-content">
-
-          </div>
-          <div id="modal2">
-
+          <div class="content col-md-3" id="people-list">
+	
           </div>
           <div class="col-md-6">
-          <div id="form-container">
-
+          <div th:if="${persona.nombre != null}" id="form-container">
+						<table class="table">
+				<thead>
+					<tr>
+						<td>Id</td>
+						<td>Nombre</td>
+						<td>Apellidos</td>
+						<td>Sexo</td>
+						<td>Cedula</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-th-object="${persona}">
+						<td data-th-text="${persona.id}"></td>
+						<td data-th-text="${persona.nombre}"></td>
+						<td data-th-text="${persona.apellidos}"></td>
+						<td data-th-text="${persona.sexo}"></td>
+						<td data-th-text="${persona.cedula}"></td>
+					</tr>
+				</tbody>
+			</table>
           </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
-
   <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/handlebars-v4.0.5.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-  <script type="text/javascript" th:src="@{/js/idGeneration.js}"></script>
-  <script type="text/javascript">
-
-  </script>
-  <script type="text/javascript">
-  function select(id)
-  {
-    //TODO llenar el formulario con los datos del password-pill
-    /*var parent = document.getElementById('form-container');
-    var currentForm = document.getElementById('form-template');
-
-    parent.removeChild(currentForm);*/
-    var webSite = $('#site-' + id).text();
-    var webSiteUrl = $('#url-' + id).text();
-    var newPassword = $('#password-' + id).text();
-    var dateExpiration = $('#expiration-' +id).text();
-
-    if($('#form-template').html() != undefined)
-    {
-      console.log('hay algo');
-      $('#form-template').remove();
-    }
-
-    $.get("/handlebars/information-edit-form.handlebars", function (data)
-    {
-        cardPass = $(data).html();
-        var template = Handlebars.compile(cardPass);
-        var data = template
-        (
-          {
-            id:id,
-            site:webSite,
-            url:webSiteUrl,
-            password:newPassword,
-            expiration:dateExpiration
-          }
-        );
-        var container = document.getElementById("form-container");
-        container.innerHTML += data;
-    });
-
-  }
-	$("#ingresos_base").click(function()
-	{
-		 $.get("/handlebars/ingresos_base.html", function (data)
-		    {
-			 	myModal2 = $(data).html();
-		     	var container =  document.getElementById("modal2");
-		     	container.innerHTML += data;
-		     	console.log(container);
-		    });
-		$('#myModal2').modal('show');
-	});
-   $('#add').click(function()
-    {
-      /*  */
-      $('#myModal').modal('show');
-    }
-  );
-
-  $('#btn-add').click(function(){
-    var webSite = $('#site').val();
-    var webSiteUrl = $('#url').val();
-    var newPassword = $('#password').val();
-    var dateExpiration = $('#expiration').val();
-
-    var cardPass;
-    $.get("/handlebars/card.handlebars", function (data)
-    {
-        cardPass = $(data).html();
-        var template = Handlebars.compile(cardPass);
-        var data = template
-        (
-          {
-            id:'password-pill' + newId(),
-            site:webSite,
-            url:webSiteUrl,
-            password:newPassword,
-            expiration:dateExpiration
-          }
-        );
-        var container = document.getElementById("password-content");
-        console.log(container);
-        container.innerHTML += data;
-    });
-    var token = $("meta[name='_csrf']").attr("content");
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-TOKEN', token);
-        }
-    });
-
-    $.ajax({
-        url : "/storeData",
-        type: "POST",
-        data : {"webSite":webSite, "webSiteUrl":webSiteUrl, "newPassword":newPassword, "dataExpiration":dateExpiration},
-        success: function(data, textStatus, jqXHR)
-        {
-            //data - response from server
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-
-        }
-    });
-  });
-
-  </script>
 </body>
 </html>

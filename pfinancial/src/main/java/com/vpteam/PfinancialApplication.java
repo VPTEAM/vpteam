@@ -4,8 +4,6 @@ package com.vpteam;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import com.vpteam.dao.PersonaDao;
-import com.vpteam.entities.Persona;
 
 @ComponentScan("com.vpteam")
 @SpringBootApplication

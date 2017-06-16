@@ -16,22 +16,22 @@
     		
     	</div>
     	<div class="col-md-4">
-    		<form th:action="@{/insertarPersona}" class="form" method="post">
+    		<form th:action="@{/insertarPersona}" class="form" method="post" th:object="${persona}">
     			<div class="form-group">
 	    			<label for="nombre">Nombre:</label>
-	    			<input class="form-control"  type="text" th:name="nombre"></input>
+	    			<input class="form-control"  type="text" th:name="nombre" th:field="*{nombre}"></input>
     			</div>
     			<div class="form-group">
     				<label for="apellidos">Apellidos:</label>
-    				<input class="form-control"  type="text" th:name="apellidos"></input>
+    				<input class="form-control"  type="text" th:name="apellidos" th:field="*{apellidos}"></input>
     			</div>
     			<div class="form-group">
     				<label for="sexo">Sexo:</label>
-    				<input class="form-control"  type="text" th:name="sexo"></input>
+    				<input class="form-control"  type="text" th:name="sexo" th:field="*{sexo}"></input>
     			</div>
     			<div class="form-group">
 	    			<label for="cedula">Cedula:</label>
-	    			<input class="form-control"  type="text" th:name="cedula"></input>
+	    			<input class="form-control"  type="text" th:name="cedula" th:field="*{cedula}"></input>
     			</div>
     			<button class="btn btn-default" type="submit">Insertar</button>
     		</form>
