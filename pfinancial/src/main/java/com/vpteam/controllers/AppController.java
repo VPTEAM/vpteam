@@ -21,6 +21,7 @@ import java.util.List;
 @Controller
 public class AppController 
 {	
+	List<Persona> listaPersona = new ArrayList<>();
 	final static Logger logger = Logger.getLogger(AppController.class);
 	@RequestMapping(value="/login")
 	public String login()
@@ -69,10 +70,9 @@ public class AppController
             PersonaDao personaDao = new PersonaDao();
             int id = personaDao.insertar(persona);
             persona.setId(id);
-            List<Persona> listaPersona = new ArrayList<>();
             listaPersona = personaDao.seleccionar();
             model.addAttribute("personas", listaPersona); 
-            return "dashboard";
+            return "redirect:/dashboard";
 	}
         
         @RequestMapping(value="/imprimirPersonas")
