@@ -23,27 +23,27 @@
 	
           </div>
           <div class="col-md-6">
-          <div th:if="${persona.nombre != null}" id="form-container">
-						<table class="table">
-				<thead>
-					<tr>
-						<td>Id</td>
-						<td>Nombre</td>
-						<td>Apellidos</td>
-						<td>Sexo</td>
-						<td>Cedula</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr data-th-object="${persona}">
-						<td data-th-text="${persona.id}"></td>
-						<td data-th-text="${persona.nombre}"></td>
-						<td data-th-text="${persona.apellidos}"></td>
-						<td data-th-text="${persona.sexo}"></td>
-						<td data-th-text="${persona.cedula}"></td>
-					</tr>
-				</tbody>
-			</table>
+          <div th:if="${personas != null || persona != null}" id="form-container">
+		<table class="table">
+                        <thead>
+                                <tr>
+                                        <td>Id</td>
+                                        <td>Nombre</td>
+                                        <td>Apellidos</td>
+                                        <td>Sexo</td>
+                                        <td>Cedula</td>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                <tr th:each="persona: ${personas}">
+                                        <td data-th-text="${persona.id}"></td>
+                                        <td data-th-text="${persona.nombre}"></td>
+                                        <td data-th-text="${persona.apellidos}"></td>
+                                        <td data-th-text="${persona.sexo}"></td>
+                                        <td data-th-text="${persona.cedula}"></td>
+                                </tr>
+                        </tbody>
+                </table>
           </div>
           </div>
         </div>

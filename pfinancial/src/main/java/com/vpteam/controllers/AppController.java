@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.vpteam.dao.PersonaDao;
 import com.vpteam.entities.Persona;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AppController 
@@ -44,23 +46,46 @@ public class AppController
 	}
 	
 	@RequestMapping(value="/dashboard")
-	public String dashboard()
+	public String dashboard(Model model)
 	{
-		return "dashboard";
+            model.addAttribute("persona", new Persona());
+            List<Persona> listaPersona = new ArrayList<>();
+            PersonaDao personaDao = new PersonaDao();
+            listaPersona = personaDao.seleccionar();
+            model.addAttribute("personas", listaPersona); 
+            return "dashboard";
 	}
 	
 	@RequestMapping(value="/insertarPersona")
 	public String storeData(Model model)
 	{	
-		model.addAttribute("persona", new Persona());
-		return "nueva_persona";
+            model.addAttribute("persona", new Persona());
+            return "nueva_persona";
 	}
 	
 	@RequestMapping(value="/insertarPersona", method=RequestMethod.POST)
-	public String storeData(@ModelAttribute Persona persona)
+	public String storeData(@ModelAttribute Persona persona, Model model)
 	{
-		PersonaDao personaDao = new PersonaDao();
-		personaDao.insertar(persona);
-		return "dashboard";
+            PersonaDao personaDao = new PersonaDao();
+            int id = personaDao.insertar(persona);
+            persona.setId(id);
+            List<Persona> listaPersona = new ArrayList<>();
+            listaPersona = personaDao.seleccionar();
+            model.addAttribute("personas", listaPersona); 
+            return "dashboard";
 	}
+        
+        @RequestMapping(value="/imprimirPersonas")
+        public String meCago(Model modelo)
+        {
+            List<Persona> listaPersona = new ArrayList<>();
+            PersonaDao personaDao = new PersonaDao();
+            listaPersona = personaDao.seleccionar();
+            modelo.addAttribute("personas", listaPersona); 
+            
+            /*for (Persona persona : personaDao.seleccionar())
+                logger.info(persona.getNombre() + "\t" + persona.getApellidos() + "\t" + persona.getSexo() +
+                        "\t" + persona.getSexo());*/
+            return "dashboard";
+        }
   }
