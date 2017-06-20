@@ -107,4 +107,31 @@ public class PersonaDao
             logger.info("Error: " + exception.getErrorCode() + exception.getMessage());
         }
     }
+    
+    /////////////////////////////////////   (2-1 * 10)           10
+    public List<Persona> pagSeleccionar(int indice, int cantidad)
+    {
+        ResultSet rs;
+        List<Persona> lista = new ArrayList<>();
+        String query = "SELECT * FROM personas LIMIT ?, ?";
+        
+        try 
+        {
+            PreparedStatement estado = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(query);
+            estado.setInt(1, indice);
+            estado.setInt(2, cantidad);
+            rs = estado.executeQuery();
+            
+            while(rs.next())
+                lista.add( new Persona( rs.getString(2), rs.getString(3), rs.getInt(4),
+                        rs.getString(5) ) );
+        }
+        catch(SQLException exception)
+        {
+            logger.error(exception);
+            logger.info("Error: " + exception.getErrorCode() + exception.getMessage());
+        }
+        
+        return lista;
+    }
 }
