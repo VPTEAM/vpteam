@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.WebRequest;
 
 import com.vpteam.dao.PersonaDao;
 import com.vpteam.entities.Persona;
@@ -54,6 +56,21 @@ public class AppController
             PersonaDao personaDao = new PersonaDao();
             listaPersona = personaDao.seleccionar();
             model.addAttribute("personas", listaPersona); 
+            int cantidadDePersonas = personaDao.numeroDePaginas();
+            double divisionEntreTotal = cantidadDePersonas / 10;
+            int residuo = cantidadDePersonas % 10;
+            int cantidadPagina = (int) Math.round(divisionEntreTotal);
+            List<Integer> cantidadPaginas = new ArrayList<Integer>();
+            if(residuo != 0)
+            {
+            	cantidadPagina += 1;
+            	for(int i = 1; i < cantidadPagina + 1; i++)
+            	{
+            		cantidadPaginas.add(i);
+            	}
+            }
+            model.addAttribute("candidadDePaginas", cantidadPaginas);
+            
             return "dashboard";
 	}
 	
@@ -74,18 +91,16 @@ public class AppController
             model.addAttribute("personas", listaPersona); 
             return "redirect:/dashboard";
 	}
-        
-        @RequestMapping(value="/imprimirPersonas")
-        public String meCago(Model modelo)
-        {
-            List<Persona> listaPersona = new ArrayList<>();
-            PersonaDao personaDao = new PersonaDao();
-            listaPersona = personaDao.seleccionar();
-            modelo.addAttribute("personas", listaPersona); 
-            
-            /*for (Persona persona : personaDao.seleccionar())
-                logger.info(persona.getNombre() + "\t" + persona.getApellidos() + "\t" + persona.getSexo() +
-                        "\t" + persona.getSexo());*/
-            return "dashboard";
-        }
+	
+	@RequestMapping(value="/paginacion")
+	@ResponseBody
+	public List<?> paginacion(WebRequest webRequest, Model modelo)
+	{
+		logger.info(webRequest.getParameter("id"));
+		List<Persona> listaPersona = new ArrayList<>();
+        PersonaDao personaDao = new PersonaDao();
+        listaPersona = personaDao.pagSeleccionar(Integer.parseInt(webRequest.getParameter("indice")), 10);
+        modelo.addAttribute("personas", listaPersona); 
+        return listaPersona;
+	}
   }

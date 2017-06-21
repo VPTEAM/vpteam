@@ -23,8 +23,8 @@
 	
           </div>
           <div class="col-md-6">
-          <div th:if="${personas != null || persona != null}" id="form-container">
-		<table class="table">
+          <div th:if="${personas != null || persona != null}" id="table-container">
+				<table id="tabla-persona" class="table">
                         <thead>
                                 <tr>
                                         <td>Id</td>
@@ -44,6 +44,11 @@
                                 </tr>
                         </tbody>
                 </table>
+		         <nav aria-label="Page navigation">
+					  <ul class="pagination" th:each="pagina: ${candidadDePaginas}">
+						<li ><a th:id="${pagina}" onclick="getPaginationData(this.id);" data-th-text="${pagina}"></a></li>
+					  </ul>
+				</nav>
           </div>
           </div>
         </div>
@@ -53,5 +58,57 @@
   <script type="text/javascript" th:src="@{/js/jquery-3.1.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/handlebars-v4.0.5.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+  <script>
+ 	function getPaginationData(id)
+ 	{
+ 		
+ 		var paginationButton = document.getElementById(id);
+ 		var indice = (id - 1) * 10;
+ 		console.log(id);
+ 		console.log(indice);
+ 		var token = $("meta[name='_csrf']").attr("content");
+ 		  $.ajaxSetup({
+ 		        beforeSend: function(xhr) {
+ 		            xhr.setRequestHeader('X-CSRF-TOKEN', token);
+ 		        }
+ 		    });
+ 		    
+ 		    $.ajax({
+ 		        url : "/paginacion",
+ 		        type: "POST",
+ 		        data : {"indice":indice},
+ 		        success: function(result, textStatus, jqXHR)
+ 		        {
+ 		            //data - response from server
+ 		            var json = JSON.parse(result);
+ 		            console.log(json);
+ 		            compileAndSetTemplate(result);
+ 		        },
+ 		        error: function (jqXHR, textStatus, errorThrown)
+ 		        {
+ 		     
+ 		        }
+ 		    });
+ 		  
+
+ 	}
+ 	
+ 	function compileAndSetTemplate(resultado)
+ 	{
+ 		
+ 		$.get("/handlebars/tabla-personas.handlebars", function (data)
+ 			    {
+ 			        cardPass = $(data).html();
+ 			        var template = Handlebars.compile(cardPass);
+ 			        var data = template(resultado);
+ 			       	var tablaContainer = document.getElementById("table-container");
+ 			       	var tablaPersona = document.getElementById("tabla-persona");
+ 			       	tablaContainer.removeChild(tablaPersona);
+ 			       	
+ 			        console.log(tablaContainer);
+ 			       	tablaContainer.innerHTML += data;
+ 			    });
+ 	}
+  </script>
 </body>
 </html>

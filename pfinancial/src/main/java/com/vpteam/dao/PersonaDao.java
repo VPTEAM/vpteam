@@ -108,6 +108,27 @@ public class PersonaDao
         }
     }
     
+    
+    public int numeroDePaginas()
+    {
+    	ResultSet rs;
+    	String query = "SELECT COUNT(*)   FROM personas";
+    	int cantidadDePaginas = 0;
+    	try 
+    	{
+    		PreparedStatement preparedStatement = Conexion.obtenerInstancia().obtenerConexion().prepareStatement(query);
+    		rs = preparedStatement.executeQuery();
+    	 	while(rs.next())
+        	{
+    	 		cantidadDePaginas = rs.getInt(1);
+        	}
+		} catch (SQLException sql) 
+    	{
+			logger.error(sql);
+		}
+    	return cantidadDePaginas;
+    }
+    
     /////////////////////////////////////   (2-1 * 10)           10
     public List<Persona> pagSeleccionar(int indice, int cantidad)
     {
